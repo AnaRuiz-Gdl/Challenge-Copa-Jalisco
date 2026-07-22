@@ -1,5 +1,6 @@
 import streamlit as st
 import fitz
+from pathlib import Path
 
 st.title("🤖 SIG-CJ AI")
 st.write (
@@ -16,8 +17,10 @@ if "total_resultados" not in st.session_state:
     st.session_state.total_resultados = 0
 
 if buscar:
-    ruta_pdf = "documentos/SIG-CJ.pdf"
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    ruta_pdf = BASE_DIR / "documentos" / "SIG-CJ.pdf"
     documento = fitz.open(ruta_pdf)
+    
     texto_completo = ""
     for pagina in documento:
         texto_completo +=pagina.get_text()
